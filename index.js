@@ -13,7 +13,7 @@ app.use(cors())
 app.use('/api/users',userRoutes)
 
 app.get('/',(req,res)=>{
-    res.json({message:"API FUNCIONANDO!"})
+    res.json({message:"API is running."})
 })
 
 app.get('/test-db',async (req,res)=>{
@@ -21,8 +21,8 @@ app.get('/test-db',async (req,res)=>{
         const result = await db.query('select now()')
         res.json({success:true, serverTime:result.rows[0].now})
     }catch (err){
-        console.log('error ao executar a query.',err)
-        res.status(500).json({success:false, error:"Não foi possivel se conectar ao banco de dados."})
+        console.log('error executing query.',err)
+        res.status(500).json({sucess:false, error:"Unable to connect to the database. "})
     }
 })
 
