@@ -42,13 +42,11 @@ router.post('/login',async(req,res)=>{
 
         const userQuery = `select * from users where email = $1`
         const userResult = await db.query(userQuery,[email])
-        console.log(userResult)
         if (userResult.rows.length === 0){
             return res.status(401).json({error:"invalid email or password."})
         }
 
         const user = userResult.rows[0]
-        console.log(user)
         const isMatch = await bcrypt.compare(password,user.password)
         if(!isMatch){
             return res.status(401).json({error:"invalid email or password."})
