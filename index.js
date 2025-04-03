@@ -3,13 +3,17 @@ const app = express()
 const cors = require('cors')
 const db = require('./src/db/db')
 const userRoutes = require('./src/routes/users')
+const authMiddleware = require('./src/middlewares/auth')
+const postsRoutes = require('./src/routes/posts');
+
+
+
 require('dotenv').config()
-
-const PORT = process.env.PORT || 3000
-
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cors())
+
+app.use('/api/posts', postsRoutes);
 app.use('/api/users',userRoutes)
 
 app.get('/',(req,res)=>{
@@ -30,8 +34,7 @@ app.get('/test-db',async (req,res)=>{
 
 
 
-
-
+const PORT = process.env.PORT || 3000
 app.listen(PORT, ()=>{
     console.log(`The server is running on the port: ${PORT}`)
 })

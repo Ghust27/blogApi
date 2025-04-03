@@ -4,7 +4,7 @@ module.exports = (req,res,next)=>{
     try{
         const authHeader = req.headers.authorization
         if(!authHeader){
-            res.status(401).json({error:"No token provided."})
+            return res.status(401).json({error:"No token provided."})
         }
         const parts = authHeader.split(' ')
         if(parts.length !== 2){
@@ -24,7 +24,7 @@ module.exports = (req,res,next)=>{
             return next()
         })
 
-    }catch{
+    }catch (err){
         return res.status(401).json({error:'Invalid token.'})
     }
 }
